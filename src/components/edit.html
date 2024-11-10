@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: gold;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: black;
+      color: gold;
+      padding: 10px 0;
+      box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    /* Logo and Company Name */
+    .company-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .company-logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .company-logo h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    /* Navigation Links */
+    nav a {
+      color: gold;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    /* Login/Signup Button in Header */
+    .login-signup-btn {
+      background-color: black;
+      color: gold;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-signup-btn:hover {
+      background-color: #333;
+    }
+
+    /* Form container styling */
+    .container {
+      margin-top: 120px;
+      width: 400px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: aliceblue;
+      box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    #form-title {
+      color: #000;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      color: black;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      color: gold;
+      background-color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #333;
+    }
+
+    button:hover {
+      background-color: white;
+      color: #000;
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="company-logo">
+        <img src="logo.png" alt="Company Logo">
+        <h1>YourCompany</h1>
+      </div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="#edit-profile">Edit Profile</a>
+      </nav>
+      <!-- Login/Signup Button -->
+      <a href="try.html" class="login-signup-btn">Login / Signup</a>
+    </div>
+  </header>
+
+  <div>
+    <div class="container">
+      <h2>Edit Profile<br><hr></h2>
+      <form id="edit-profile-form" method="POST" action="edit-profile.php">
+        <input type="hidden" name="action" id="form-action" value="edit-profile">
+        
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" value="John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" value="johndoe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="johndoe@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <select id="gender" name="gender" required>
+            <option value="male" selected>Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" name="dob" value="1990-01-01" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" value="123 Main St" required>
+        </div>
+
+        <div class="form-group">
+          <label for="qualification">Qualification:</label>
+          <input type="text" id="qualification" name="qualification" value="Bachelors in Computer Science" required>
+        </div>
+
+        <button type="submit" class="submit-btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Fair Home</title>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      background-color: #CFDBDF;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background-color: #647074;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      color: #DDE9EE;
+    }
+
+    .header-container h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+
+    .search-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .search-container input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .search-container button {
+      padding: 10px 20px;
+      background-color: #F19393;
+      color: #FFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .job-listings {
+      margin-top: 20px;
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .job-card {
+      background-color: #DDE9EE;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .job-card h3 {
+      margin: 0;
+      color: #333;
+    }
+
+    .job-card p {
+      margin: 5px 0;
+    }
+
+    .add-job-button {
+      margin-top: 40px;
+      padding: 10px 20px;
+      background-color: #F19393;
+      color: #FFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .add-job-container {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .add-job-container input[type="text"],
+    .add-job-container textarea,
+    .add-job-container input[type="tel"],
+    .add-job-container input[type="email"] {
+      padding: 8px;
+      width: 300px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .add-job-container button {
+      padding: 10px 20px;
+      background-color: #F19393;
+      color: #FFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <header class="header-container">
+    <h1>Job Fair</h1>
+    <p>Find Your Dream Job</p>
+  </header>
+
+  <!-- Search Bar Section -->
+  <div class="search-container">
+    <input type="text" id="search-keyword" placeholder="Search for jobs...">
+    <button onclick="fetchJobs()">Search</button>
+  </div>
+
+  <!-- Add Job Button -->
+  <button class="add-job-button" onclick="toggleAddJobForm()">Add Job</button>
+
+  <!-- Add Job Form Section (Initially Hidden) -->
+  <div class="add-job-container" id="add-job-container">
+    <h2>Add a Job</h2>
+    <form id="add-job-form" onsubmit="addJob(event)">
+      <input type="text" id="job-title" placeholder="Job Title" required>
+      <input type="text" id="job-company" placeholder="Company" required>
+      <input type="text" id="job-location" placeholder="Location" required>
+      <textarea id="job-description" placeholder="Job Description" required></textarea>
+      <input type="email" id="contact-email" placeholder="Contact Email" required>
+      <input type="tel" id="contact-phone" placeholder="Contact Phone Number" pattern="^[0-9]{10}$" required title="Please enter a valid 10-digit phone number">
+      <textarea id="mailing-address" placeholder="Mailing Address" required></textarea>
+      <button type="submit">Add Job</button>
+    </form>
+  </div>
+
+  <!-- Job Listings Section -->
+  <div class="job-listings" id="job-listings">
+    <!-- Job cards will appear here based on the search or added jobs -->
+  </div>
+
+  <script>
+    const jobsData = [
+      { title: "Software Engineer", company: "Tech Corp", location: "New York", description: "Develop and maintain software solutions.", email: "hr@techcorp.com", phone: "+1234567890", address: "123 Tech Lane, NY" },
+      { title: "Project Manager", company: "Business Solutions", location: "San Francisco", description: "Lead and manage project teams to success.", email: "hr@businessequip.com", phone: "+0987654321", address: "456 Business Ave, SF" },
+      { title: "Data Analyst", company: "Data Inc.", location: "Austin", description: "Analyze and interpret complex data sets.", email: "contact@datainc.com", phone: "+1122334455", address: "789 Data St, Austin" },
+      { title: "UX Designer", company: "Creative Designs", location: "Remote", description: "Design user-friendly interfaces and experiences.", email: "design@creativedesigns.com", phone: "+5566778899", address: "Remote" }
+    ];
+
+    function fetchJobs() {
+      const keyword = document.getElementById('search-keyword').value.toLowerCase();
+      const jobListings = document.getElementById('job-listings');
+      const filteredJobs = jobsData.filter(job => 
+        job.title.toLowerCase().includes(keyword) || 
+        job.company.toLowerCase().includes(keyword) || 
+        job.location.toLowerCase().includes(keyword) ||
+        job.description.toLowerCase().includes(keyword) ||
+        job.email.toLowerCase().includes(keyword) ||
+        job.phone.includes(keyword) ||
+        job.address.toLowerCase().includes(keyword)
+      );
+
+      jobListings.innerHTML = '';
+      if (filteredJobs.length > 0) {
+        filteredJobs.forEach(job => {
+          const jobCard = document.createElement('div');
+          jobCard.classList.add('job-card');
+          jobCard.innerHTML = `
+            <h3>${job.title}</h3>
+            <p><strong>Company:</strong> ${job.company}</p>
+            <p><strong>Location:</strong> ${job.location}</p>
+            <p><strong>Contact Email:</strong> ${job.email}</p>
+            <p><strong>Contact Phone:</strong> ${job.phone}</p>
+            <p><strong>Mailing Address:</strong> ${job.address}</p>
+            <p>${job.description}</p>
+          `;
+          jobListings.appendChild(jobCard);
+        });
+      } else {
+        jobListings.innerHTML = "<p>No jobs found.</p>";
+      }
+    }
+
+    function toggleAddJobForm() {
+      const addJobContainer = document.getElementById('add-job-container');
+      addJobContainer.style.display = addJobContainer.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function addJob(event) {
+      event.preventDefault();
+
+      const title = document.getElementById('job-title').value.trim();
+      const company = document.getElementById('job-company').value.trim();
+      const location = document.getElementById('job-location').value.trim();
+      const description = document.getElementById('job-description').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const phone = document.getElementById('contact-phone').value.trim();
+      const address = document.getElementById('mailing-address').value.trim();
+
+      if (!title || !company || !location || !description || !email || !phone || !address) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      jobsData.push({ title, company, location, description, email, phone, address });
+      document.getElementById('add-job-form').reset();
+      toggleAddJobForm();
+      fetchJobs();
+    }
+
+    window.onload = fetchJobs;
+  </script>
+</body>
+</html>
